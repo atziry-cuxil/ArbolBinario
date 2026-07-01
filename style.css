@@ -1,0 +1,24 @@
+.molde {
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    grid-template-rows: repeat(20,1fr);
+    border: 0.3rem black solid;
+}
+
+.divStyle {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    font-size: 2rem;
+    background-color: rgb(3, 171, 62);
+    color: rgb(0, 71, 2);  
+}
+
+.divStyle2 {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    font-size: 2rem;
+    background-color: rgb(238, 255, 0);
+    color: rgb(0, 71, 2);      
+}

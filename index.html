@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Árbol Binario</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body class="bg-dark">
+    <div class="container py-5">
+        <h1 class="text-center mb-4">
+            Árbol Binario
+        </h1>
+        <div class="row g-4">
+            <!-- Panel de acciones -->
+            <div class="col-lg-4">
+
+                <div class="card shadow-sm">
+
+                    <div class="card-header">
+                        Operaciones
+                    </div>
+
+                    <div class="card-body">
+
+                        <!-- Agregar -->
+                        <h5>Agregar Nodo</h5>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Valor
+                            </label>
+
+                            <input type="number" id="Agregar" class="form-control" placeholder="Ingrese un valor" required>
+                        </div>
+
+                        <button id="btnAgregar" class="btn btn-primary w-100 mb-4">
+                            Agregar
+                        </button>
+
+                        <hr>
+
+                        <!-- Buscar -->
+                        <h5>Buscar Nodo</h5>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Valor
+                            </label>
+
+                            <input type="number" id="txtBuscar" class="form-control" placeholder="Ingrese un valor">
+                        </div>
+
+                        <div class="d-flex">
+                            <button id="btnBuscar" class="btn btn-success w-50" disabled>
+                                Buscar</button>
+                            <button id="btnNormalizar" class="btn btn-dark w-50" disabled> Normalizar</button>
+                        </div>
+
+                        <div id="resultadoBusqueda" class="alert alert-secondary mt-3 mb-0">
+                            Resultado de la búsqueda...
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Árbol -->
+            <div class="col-lg-8">
+
+                <div class="card shadow-sm">
+
+                    <div class="card-header">
+                        Visualización del Árbol
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="text-muted">
+                            El árbol aparecerá aquí
+                        </h5>
+                        <div id="contenedorArbol" class="border rounded bg-white p-5 text-center molde"
+                            style="min-height:450px;">
+
+                            <!--
+                            Aquí dibujarás el árbol desde JavaScript.
+                            Puedes insertar nodos, SVG, divs,
+                            canvas, etc.
+                        -->
+
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Recorridos -->
+
+        <div class="card shadow-sm mt-4">
+
+            <div class="card-header">
+                Recorridos del Árbol
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <button id="btnPreOrden" class="btn btn-outline-primary w-100">
+                            PreOrden
+                        </button>
+                    </div>
+                    <div class="col-md-4">
+                        <button id="btnInOrden" class="btn btn-outline-success w-100">
+                            InOrden
+                        </button>
+                    </div>
+                    <div class="col-md-4">
+                        <button id="btnPostOrden" class="btn btn-outline-danger w-100">
+                            PostOrden
+                        </button>
+                    </div>
+                </div>
+                <hr>
+                <h5>Resultado</h5>
+                <div id="resultadoRecorrido" class="alert alert-info mb-0">
+                    Aquí se mostrará el recorrido.
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./app.js"></script>
+</body>
+
+</html>
