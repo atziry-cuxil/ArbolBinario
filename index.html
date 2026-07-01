@@ -35,7 +35,8 @@
                                 Valor
                             </label>
 
-                            <input type="number" id="Agregar" class="form-control" placeholder="Ingrese un valor" required>
+                            <input type="number" id="Agregar" class="form-control" placeholder="Ingrese un valor"
+                                required>
                         </div>
 
                         <button id="btnAgregar" class="btn btn-primary w-100 mb-4">
@@ -73,72 +74,77 @@
 
             <!-- Árbol -->
             <div class="col-lg-8">
-
                 <div class="card shadow-sm">
-
-                    <div class="card-header">
-                        Visualización del Árbol
-                    </div>
-
+                    <div class="card-header"> Visualización del Árbol</div>
                     <div class="card-body">
-                        <h5 class="text-muted">
-                            El árbol aparecerá aquí
-                        </h5>
-                        <div id="contenedorArbol" class="border rounded bg-white p-5 text-center molde"
-                            style="min-height:450px;">
+                        <h5 class="text-muted">El árbol aparecerá aquí</h5>
+                        <div id="contenedorArbol" class="border bg-white p-5 molde" style="min-height:450px;">
+                            <div id="arbol" class="tree">
+                                <ul>
+                                    <li id="liPadre">
+                                        <div class="node"> A </div>
+                                        <ul>
+                                            <li>
+                                                <div class="node"> B </div>
+                                                <ul>
+                                                    <li>
+                                                        <div class="node"> D </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="node"> E </div>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <div class="node"> C </div>
+                                                <ul>
+                                                    <li>
+                                                        <div class="node"> F </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="node">G </div>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
 
-                            <!--
-                            Aquí dibujarás el árbol desde JavaScript.
-                            Puedes insertar nodos, SVG, divs,
-                            canvas, etc.
-                        -->
+                            <!-- Recorridos -->
 
+                            <div class="card shadow-sm mt-4">
 
-
+                                <div class="card-header">
+                                    Recorridos del Árbol
+                                </div>
+                                <div class="card-body">
+                                    <div class="row g-3">
+                                        <div class="col-md-4">
+                                            <button id="btnPreOrden" class="btn btn-outline-primary w-100 d-none">
+                                                PreOrden
+                                            </button>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button id="btnInOrden" class="btn btn-outline-success w-100 d-none">
+                                                InOrden
+                                            </button>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button id="btnPostOrden" class="btn btn-outline-danger w-100">
+                                                PostOrden
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <h5>Resultado</h5>
+                                    <div id="resultadoRecorrido" class="alert alert-info mb-0">
+                                        Aquí se mostrará el recorrido.
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- Recorridos -->
-
-        <div class="card shadow-sm mt-4">
-
-            <div class="card-header">
-                Recorridos del Árbol
-            </div>
-            <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <button id="btnPreOrden" class="btn btn-outline-primary w-100">
-                            PreOrden
-                        </button>
-                    </div>
-                    <div class="col-md-4">
-                        <button id="btnInOrden" class="btn btn-outline-success w-100">
-                            InOrden
-                        </button>
-                    </div>
-                    <div class="col-md-4">
-                        <button id="btnPostOrden" class="btn btn-outline-danger w-100">
-                            PostOrden
-                        </button>
-                    </div>
-                </div>
-                <hr>
-                <h5>Resultado</h5>
-                <div id="resultadoRecorrido" class="alert alert-info mb-0">
-                    Aquí se mostrará el recorrido.
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="./app.js"></script>
+                        <script src="./app.js"></script>
 </body>
 
 </html>

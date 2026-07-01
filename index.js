@@ -77,115 +77,56 @@ class Arbol {
     }
 }
 
-let miArbol = new Arbol()
+let prueba = new Arbol();
+// prueba.insertar(10)
+// prueba.insertar(4)
+// prueba.insertar(20)
+// prueba.insertar(2)
+// prueba.insertar(8)
+// prueba.insertar(1)
+// prueba.insertar(9)
+// prueba.insertar(17)
+// prueba.insertar(170)
 
-let inputAgregar = document.querySelector('#Agregar')
-let btnAgregar = document.querySelector('#btnAgregar')
+prueba.insertar(8)
+prueba.insertar(4)
+prueba.insertar(2)
+prueba.insertar(6)
+prueba.insertar(10)
+prueba.insertar(9)
+prueba.insertar(11)
+prueba.insertar(18)
 
-let inputBuscar = document.querySelector('#txtBuscar')
-let btnBuscar = document.querySelector('#btnBuscar')
-let btnNormalizar = document.querySelector('#btnNormalizar')
-
-let contenedorArbol = document.querySelector('#contenedorArbol')
-let contenedroRecorrido = document.querySelector('#contenedorRecorrido')
-let listaPadre = document.querySelector('#liPadre')
-let resultadoRecorrido = document.querySelector('#resultadoRecorrido')
-
-let postOrder = document.querySelector('#btnPostOrden')
-let valorABuscar = 0;
 let arrayPosiciones = [];
-
-btnAgregar.addEventListener('click', (event) => {
-    miArbol.insertar(parseFloat(inputAgregar.value))
-    console.log(miArbol)
-    inputAgregar.value = ''
-    btnBuscar.disabled = false;
-    pintarArbol()
-})
-
-btnBuscar.addEventListener('click', (event) => {
-    valorABuscar = parseFloat(inputBuscar.value)
-    miArbol.buscar(valorABuscar)
-    inputBuscar.value = ''
-    btnBuscar.disabled = true;
-    btnNormalizar.disabled = false;
-    pintarArbol();
-})
-
-btnNormalizar.addEventListener('click', (event) => {
-    miArbol.buscar(valorABuscar)
-    btnNormalizar.disabled = true;
-    btnBuscar.disabled = false;
-    pintarArbol();
-})
-
-postOrder.addEventListener('click', (event) => {
-    mostrarRecorrido();
-})
-let indices = [1,2,4,6,8,10,12]
-function pintarArbol() {
-    let temporal = miArbol.raiz
-    let actual = miArbol.raiz
-    listaPadre.innerHTML = ''
-
-    //otro temporal para guardar o saver en donde pintar el div
-
-    for (let i = 0; i < miArbol.contador; i++) {
-
-        let div = document.createElement('div')
-        if (temporal.estado == 'si') {
-            div.setAttribute('class', 'node2')
-        } else {
-            div.setAttribute('class', 'node')
-        }
-        div.textContent = `${temporal.value}`
-        temporal = temporal.izquierda
-        // if (i == 0) {
-        //     listaPadre.append(div)
-        // }
-
-        // if (indices.includes(i)) {
-        //     let ul = document.createElement('ul')
-        //     let li = document.createElement('li')
-        //     li.append(div)
-        //     ul.append(li)
-        //     listaPadre.append(ul)
-        // }else {
-        //     let li = document.createElement('li')
-        //     li.append(div)
-        //     listaPadre.appendChild(li)
-        // }
-
-    }
-    preguntar(miArbol.raiz)
-    resultadoRecorrido = ''
-    resultadoRecorrido.innerHTML = `${arrayPosiciones}`
-}
+let ultimo = 0.000;
 
 
-function mostrarRecorrido() {
-    console.log('hola mundo')
-} 
+
+preguntar(prueba.raiz)
 
 function preguntar(actual) {
     //console.log(actual)
     //console.log('===========')
-    if (!actual.izquierda) {
+    if (actual.izquierda != null) {
         preguntar(actual.izquierda)
         preguntarDerecha(actual.derecha)
         arrayPosiciones.push(actual.value)
     } else {
+        preguntarDerecha(actual)
         return arrayPosiciones.push(actual.value);
     }
+
 }
 
 function preguntarDerecha(actual) {
-    //console.log(actual)
-    if (!actual.derecha) {
+    console.log(actual)
+    if (actual.derecha != null) {
         preguntar(actual.izquierda)
         preguntarDerecha(actual.derecha)
         arrayPosiciones.push(actual.value)
     } else {
+        preguntarDerecha(actual)
         return arrayPosiciones.push(actual.value);
     }
 }
+console.log(arrayPosiciones)
