@@ -170,7 +170,7 @@ function mostrarRecorrido() {
 function preguntar(actual) {
     //console.log(actual)
     //console.log('===========')
-    if (!actual.izquierda) {
+    if (actual.izquierda != null) {
         preguntar(actual.izquierda)
         preguntarDerecha(actual.derecha)
         arrayPosiciones.push(actual.value)

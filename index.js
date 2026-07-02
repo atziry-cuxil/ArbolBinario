@@ -105,27 +105,26 @@ let ultimo = 0.000;
 preguntar(prueba.raiz)
 
 function preguntar(actual) {
-    //console.log(actual)
+    console.log(actual)
     //console.log('===========')
     if (actual.izquierda != null) {
         preguntar(actual.izquierda)
         preguntarDerecha(actual.derecha)
         arrayPosiciones.push(actual.value)
     } else {
-        preguntarDerecha(actual)
         return arrayPosiciones.push(actual.value);
     }
 
 }
 
 function preguntarDerecha(actual) {
-    console.log(actual)
+   // console.log(actual)
     if (actual.derecha != null) {
         preguntar(actual.izquierda)
         preguntarDerecha(actual.derecha)
         arrayPosiciones.push(actual.value)
     } else {
-        preguntarDerecha(actual)
+        //preguntar(actual)
         return arrayPosiciones.push(actual.value);
     }
 }
