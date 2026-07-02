@@ -110,18 +110,18 @@ let ultimo = 0.000;
 pintarArbol2(prueba.raiz)
 function pintarArbol2(actual) {
 
-    if(actual.izquierda){
-    if (actual.izquierda != null) {
-        pintarArbol2(actual.izquierda)
-    }else{
-        //return arrayPosiciones.push(actual.actual)
-    }
+    if (actual.izquierda) {
+        if (actual.izquierda != null) {
+            pintarArbol2(actual.izquierda)
+        } else {
+            //return arrayPosiciones.push(actual.actual)
+        }
     }
 
-    if(actual.derecha){
-        if(actual.derecha != null){
+    if (actual.derecha) {
+        if (actual.derecha != null) {
             pintarArbol2(actual.derecha)
-        }else {
+        } else {
             //return arrayPosiciones.push(actual.value)
         }
     }
@@ -131,11 +131,7 @@ function pintarArbol2(actual) {
 
 console.log(arrayPosiciones)
 
-
-
 function preguntar(actual) {
-    //console.log(actual)
-    //console.log('===========')
     if (actual.izquierda != null) {
         preguntar(actual.izquierda)
         preguntarDerecha(actual.derecha)
@@ -147,7 +143,6 @@ function preguntar(actual) {
 }
 
 function preguntarDerecha(actual) {
-    console.log(actual)
     if (actual.derecha != null) {
         preguntar(actual.izquierda)
         preguntarDerecha(actual.derecha)

@@ -96,13 +96,14 @@ let valorABuscar = 0;
 let arrayPosiciones = [];
 
 btnAgregar.addEventListener('click', (event) => {
-    miArbol.insertar(parseFloat(inputAgregar.value))
-    console.log(miArbol)
-    inputAgregar.value = ''
-    btnBuscar.disabled = false;
-    arrayPosiciones = [];
-    preguntar(miArbol.raiz)
-    pintarArbol()
+    if (!Number.isNaN(parseFloat(inputAgregar.value))) {
+        miArbol.insertar(parseFloat(inputAgregar.value))
+        inputAgregar.value = ''
+        btnBuscar.disabled = false;
+        arrayPosiciones = [];
+        preguntar(miArbol.raiz)
+        pintarArbol()
+    }
 })
 
 btnBuscar.addEventListener('click', (event) => {
@@ -122,22 +123,46 @@ btnNormalizar.addEventListener('click', (event) => {
 })
 
 postOrder.addEventListener('click', (event) => {
-    mostrarRecorrido();
+    listaPadre.innerHTML = ''
+    mostrarRecorrido(miArbol.raiz, listaPadre);
 })
 function pintarArbol() {
     let temporal = miArbol.raiz
     let actual = miArbol.raiz
     listaPadre.innerHTML = ''
-
-    pintar(miArbol.raiz,listaPadre)
+    pintar(miArbol.raiz, listaPadre)
     resultadoRecorrido.innerHTML = ''
     resultadoRecorrido.innerHTML = `${arrayPosiciones}`
-    console.log(arrayPosiciones)
 }
 
 
-function mostrarRecorrido() {
-    console.log('hola mundo')
+function mostrarRecorrido(actual, contenedor) {
+        let ul = document.createElement('ul')
+        let li = document.createElement('li')
+        let div = document.createElement('div')
+        if (actual.estado == 'si') {
+            div.setAttribute('class', 'node2')
+        } else {
+            div.setAttribute('class', 'node')
+        }
+        div.textContent = `${actual.value}`
+        ul.append(li)
+
+        if (actual.izquierda) {
+            if (actual.izquierda != null) {
+                pintar(actual.izquierda, li)
+            }
+        }
+        if (actual.derecha) {
+            if (actual.derecha != null) {
+                let lii = document.createElement('li')
+                ul.append(lii)
+                pintar(actual.derecha, lii)
+            }
+        }
+        contenedor.append(div)
+        contenedor.append(ul)
+        return this;            
 }
 
 function preguntar(actual) {
@@ -157,7 +182,7 @@ function preguntar(actual) {
     return arrayPosiciones.push(actual.value)
 }
 
-function pintar(actual,contenedor) {
+function pintar(actual, contenedor) {
     let ul = document.createElement('ul')
     let li = document.createElement('li')
     let div = document.createElement('div')
@@ -167,7 +192,6 @@ function pintar(actual,contenedor) {
         div.setAttribute('class', 'node')
     }
     div.textContent = `${actual.value}`
-    li.append(div)
     ul.append(li)
 
     if (actual.izquierda) {
@@ -177,8 +201,12 @@ function pintar(actual,contenedor) {
     }
     if (actual.derecha) {
         if (actual.derecha != null) {
-            pintar(actual.derecha, li)
+            let lii = document.createElement('li')
+            ul.append(lii)
+            pintar(actual.derecha, lii)
         }
-    }   
-    return contenedor.append(li)
+    }
+    contenedor.append(div)
+    contenedor.append(ul)
+    return this;
 }
