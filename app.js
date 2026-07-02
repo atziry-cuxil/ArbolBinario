@@ -109,12 +109,14 @@ btnAgregar.addEventListener('click', (event) => {
 })
 
 btnBuscar.addEventListener('click', (event) => {
-    valorABuscar = parseFloat(inputBuscar.value)
-    miArbol.buscar(valorABuscar)
-    inputBuscar.value = ''
-    btnBuscar.disabled = true;
-    btnNormalizar.disabled = false;
-    pintarArbol();
+    if (!Number.isNaN(parseFloat(inputBuscar.value))) {
+        valorABuscar = parseFloat(inputBuscar.value)
+        miArbol.buscar(valorABuscar)
+        inputBuscar.value = ''
+        btnBuscar.disabled = true;
+        btnNormalizar.disabled = false;
+        pintarArbol();
+    }
 })
 
 btnNormalizar.addEventListener('click', (event) => {
@@ -159,7 +161,7 @@ function mostrarRecorrido() {
             } else {
                 divActual.className = 'none'
             }
-        },tiempo)
+        }, tiempo)
 
         contador++
         tiempo += 1000
