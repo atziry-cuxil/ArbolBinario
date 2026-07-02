@@ -83,26 +83,55 @@ let prueba = new Arbol();
 // prueba.insertar(20)
 // prueba.insertar(2)
 // prueba.insertar(8)
-// prueba.insertar(1)
+// prueba.insertar(5)
 // prueba.insertar(9)
 // prueba.insertar(17)
 // prueba.insertar(170)
 
-prueba.insertar(8)
-prueba.insertar(4)
-prueba.insertar(2)
-prueba.insertar(6)
-prueba.insertar(10)
-prueba.insertar(9)
-prueba.insertar(11)
-prueba.insertar(18)
+// prueba.insertar(8)
+// prueba.insertar(4)
+// prueba.insertar(2)
+// prueba.insertar(6)
+// prueba.insertar(10)
+// prueba.insertar(9)
+// prueba.insertar(11)
+// prueba.insertar(18)
+
+prueba.insertar(100)
+prueba.insertar(90)
+prueba.insertar(80)
+prueba.insertar(70)
+prueba.insertar(80)
+
 
 let arrayPosiciones = [];
 let ultimo = 0.000;
 
+pintarArbol2(prueba.raiz)
+function pintarArbol2(actual) {
+
+    if(actual.izquierda){
+    if (actual.izquierda != null) {
+        pintarArbol2(actual.izquierda)
+    }else{
+        //return arrayPosiciones.push(actual.actual)
+    }
+    }
+
+    if(actual.derecha){
+        if(actual.derecha != null){
+            pintarArbol2(actual.derecha)
+        }else {
+            //return arrayPosiciones.push(actual.value)
+        }
+    }
+
+    return arrayPosiciones.push(actual.value)
+}
+
+console.log(arrayPosiciones)
 
 
-preguntar(prueba.raiz)
 
 function preguntar(actual) {
     //console.log(actual)
@@ -112,7 +141,6 @@ function preguntar(actual) {
         preguntarDerecha(actual.derecha)
         arrayPosiciones.push(actual.value)
     } else {
-        preguntarDerecha(actual)
         return arrayPosiciones.push(actual.value);
     }
 
@@ -125,7 +153,6 @@ function preguntarDerecha(actual) {
         preguntarDerecha(actual.derecha)
         arrayPosiciones.push(actual.value)
     } else {
-        preguntarDerecha(actual)
         return arrayPosiciones.push(actual.value);
     }
 }
