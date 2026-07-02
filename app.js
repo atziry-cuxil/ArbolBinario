@@ -89,18 +89,23 @@ let btnNormalizar = document.querySelector('#btnNormalizar')
 let contenedorArbol = document.querySelector('#contenedorArbol')
 let contenedroRecorrido = document.querySelector('#contenedorRecorrido')
 let listaPadre = document.querySelector('#liPadre')
-let resultadoRecorrido = document.querySelector('#resultadoRecorrido')
+let resultadoRecorrido = document.querySelector('#resultado')
 
 let postOrder = document.querySelector('#btnPostOrden')
+let normalizar = document.querySelector('#Normalizar')
 let valorABuscar = 0;
 let arrayPosiciones = [];
 
 btnAgregar.addEventListener('click', (event) => {
-    miArbol.insertar(parseFloat(inputAgregar.value))
-    console.log(miArbol)
-    inputAgregar.value = ''
-    btnBuscar.disabled = false;
-    pintarArbol()
+    if (!Number.isNaN(parseFloat(inputAgregar.value))) {
+        miArbol.insertar(parseFloat(inputAgregar.value))
+        inputAgregar.value = ''
+        btnBuscar.disabled = false;
+        postOrder.disabled = false;
+        arrayPosiciones = [];
+        preguntar(miArbol.raiz)
+        pintarArbol()
+    }
 })
 
 btnBuscar.addEventListener('click', (event) => {
@@ -121,71 +126,89 @@ btnNormalizar.addEventListener('click', (event) => {
 
 postOrder.addEventListener('click', (event) => {
     mostrarRecorrido();
+    postOrder.disabled = true;
+    normalizar.disabled = false;
+    btnAgregar.disabled = true;
 })
-let indices = [1,2,4,6,8,10,12]
+
+normalizar.addEventListener('click', (event) => {
+    postOrder.disabled = false;
+    normalizar.disabled = true;
+    btnAgregar.disabled = false;
+    mostrarRecorrido();
+    pintarArbol();
+
+})
+
 function pintarArbol() {
-    let temporal = miArbol.raiz
-    let actual = miArbol.raiz
     listaPadre.innerHTML = ''
-
-    //otro temporal para guardar o saver en donde pintar el div
-
-    for (let i = 0; i < miArbol.contador; i++) {
-
-        let div = document.createElement('div')
-        if (temporal.estado == 'si') {
-            div.setAttribute('class', 'node2')
-        } else {
-            div.setAttribute('class', 'node')
-        }
-        div.textContent = `${temporal.value}`
-        temporal = temporal.izquierda
-        // if (i == 0) {
-        //     listaPadre.append(div)
-        // }
-
-        // if (indices.includes(i)) {
-        //     let ul = document.createElement('ul')
-        //     let li = document.createElement('li')
-        //     li.append(div)
-        //     ul.append(li)
-        //     listaPadre.append(ul)
-        // }else {
-        //     let li = document.createElement('li')
-        //     li.append(div)
-        //     listaPadre.appendChild(li)
-        // }
-
-    }
-    preguntar(miArbol.raiz)
-    resultadoRecorrido = ''
+    resultadoRecorrido.innerHTML = ''
+    pintar(miArbol.raiz, listaPadre)
     resultadoRecorrido.innerHTML = `${arrayPosiciones}`
 }
 
-
 function mostrarRecorrido() {
-    console.log('hola mundo')
-} 
+    let contador = 0;
+    let tiempo = 1000
+    while (contador < arrayPosiciones.length) {
+        let divActual = document.querySelector(`#id${arrayPosiciones[contador]}id`)
 
-function preguntar(actual) {
-    //console.log(actual)
-    //console.log('===========')
-    if (actual.izquierda != null) {
-        preguntar(actual.izquierda)
-        preguntarDerecha(actual.derecha)
-        arrayPosiciones.push(actual.value)
-    } else {
-        return arrayPosiciones.push(actual.value);
+        setTimeout(() => {
+            if (divActual.classList.contains('node')) {
+                divActual.className = 'node2'
+            } else {
+                divActual.className = 'none'
+            }
+        },tiempo)
+
+        contador++
+        tiempo += 1000
     }
 }
 
-function preguntarDerecha(actual) {
-    //console.log(actual)
-    if (!actual.derecha) {
-        preguntar(actual.izquierda)
-        preguntarDerecha(actual.derecha)
-        arrayPosiciones.push(actual.value)
-    } else {
-        return arrayPosiciones.push(actual.value);
+function preguntar(actual) {
+
+    if (actual.izquierda) {
+        if (actual.izquierda != null) {
+            preguntar(actual.izquierda)
+        }
     }
+
+    if (actual.derecha) {
+        if (actual.derecha != null) {
+            preguntar(actual.derecha)
+        }
+    }
+
+    return arrayPosiciones.push(actual.value)
+}
+
+function pintar(actual, contenedor) {
+    let ul = document.createElement('ul')
+    let li = document.createElement('li')
+    let div = document.createElement('div')
+    div.setAttribute('id', `id${actual.value}id`)
+    if (actual.estado == 'si') {
+        div.setAttribute('class', 'node2')
+    } else {
+        div.setAttribute('class', 'node')
+    }
+    div.textContent = `${actual.value}`
+    ul.append(li)
+
+    if (actual.izquierda) {
+        if (actual.izquierda != null) {
+            pintar(actual.izquierda, li)
+        }
+    }
+    if (actual.derecha) {
+        if (actual.derecha != null) {
+            let lii = document.createElement('li')
+            ul.append(lii)
+            pintar(actual.derecha, lii)
+        }
+    }
+    contenedor.append(div)
+    contenedor.append(ul)
+    return this;
 }
