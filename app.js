@@ -91,19 +91,25 @@ let contenedroRecorrido = document.querySelector('#contenedorRecorrido')
 let listaPadre = document.querySelector('#liPadre')
 let resultadoRecorrido = document.querySelector('#resultado')
 
-let postOrder = document.querySelector('#btnPostOrden')
+let btnPreOrden = document.querySelector('#btnPreOrden')
+let btnInOrden = document.querySelector('#btnInOrden')
+let btnPostOrden = document.querySelector('#btnPostOrden')
 let normalizar = document.querySelector('#Normalizar')
 let valorABuscar = 0;
-let arrayPosiciones = [];
+let recorridoPreOrden = [];
+let recorridoInOrden = [];
+let recorridoPostOrden = [];
 
 btnAgregar.addEventListener('click', (event) => {
     if (!Number.isNaN(parseFloat(inputAgregar.value))) {
         miArbol.insertar(parseFloat(inputAgregar.value))
         inputAgregar.value = ''
         btnBuscar.disabled = false;
-        postOrder.disabled = false;
-        arrayPosiciones = [];
-        preguntar(miArbol.raiz)
+        btnPostOrden.disabled = false;
+        btnInOrden.disabled = false;
+        btnPreOrden.disabled = false;
+        recorridoPostOrden = [];
+        postOrden(miArbol.raiz)
         pintarArbol()
     }
 })
@@ -126,30 +132,61 @@ btnNormalizar.addEventListener('click', (event) => {
     pintarArbol();
 })
 
-postOrder.addEventListener('click', (event) => {
-    mostrarRecorrido();
-    postOrder.disabled = true;
-    normalizar.disabled = false;
+btnPreOrden.addEventListener('click', (event) => {
+    recorridoPreOrden = [];
+    preOrden(miArbol.raiz)
+    mostrarRecorrido(recorridoPreOrden);
+    btnPostOrden.disabled = true;
     btnAgregar.disabled = true;
+    btnPreOrden.disabled = true;
+    btnInOrden.disabled = true;
+    normalizar.disabled = false;
+    resultadoRecorrido.innerHTML = ''
+    resultadoRecorrido.innerHTML = `${recorridoPreOrden}`
+})
+
+btnInOrden.addEventListener('click', (event) => {
+    recorridoInOrden = [];
+    inOrden(miArbol.raiz)
+    mostrarRecorrido(recorridoInOrden);
+    btnPostOrden.disabled = true;
+    btnAgregar.disabled = true;
+    btnPreOrden.disabled = true;
+    btnInOrden.disabled = true;
+    normalizar.disabled = false;
+    resultadoRecorrido.innerHTML = ''
+    resultadoRecorrido.innerHTML = `${recorridoInOrden}`
+})
+
+btnPostOrden.addEventListener('click', (event) => {
+    recorridoPostOrden = [];
+    postOrden(miArbol.raiz)
+    mostrarRecorrido(recorridoPostOrden);
+    btnPostOrden.disabled = true;
+    btnAgregar.disabled = true;
+    btnPreOrden.disabled = true;
+    btnInOrden.disabled = true;
+    normalizar.disabled = false;
+    resultadoRecorrido.innerHTML = ''
+    resultadoRecorrido.innerHTML = `${recorridoPostOrden}`
 })
 
 normalizar.addEventListener('click', (event) => {
-    postOrder.disabled = false;
-    normalizar.disabled = true;
+    btnPreOrden.disabled = false;
+    btnInOrden.disabled = false;
+    btnPostOrden.disabled = false;
     btnAgregar.disabled = false;
-    mostrarRecorrido();
+    normalizar.disabled = true;
+    mostrarRecorrido(recorridoPostOrden);
     pintarArbol();
-
 })
 
 function pintarArbol() {
     listaPadre.innerHTML = ''
-    resultadoRecorrido.innerHTML = ''
     pintar(miArbol.raiz, listaPadre)
-    resultadoRecorrido.innerHTML = `${arrayPosiciones}`
 }
 
-function mostrarRecorrido() {
+function mostrarRecorrido(arrayPosiciones) {
     let contador = 0;
     let tiempo = 1000
     while (contador < arrayPosiciones.length) {
@@ -168,21 +205,48 @@ function mostrarRecorrido() {
     }
 }
 
-function preguntar(actual) {
+function preOrden(actual) {
+
+    recorridoPreOrden.push(actual.value)
 
     if (actual.izquierda) {
-        if (actual.izquierda != null) {
-            preguntar(actual.izquierda)
-        }
+        preOrden(actual.izquierda)
     }
 
     if (actual.derecha) {
-        if (actual.derecha != null) {
-            preguntar(actual.derecha)
-        }
+        preOrden(actual.derecha)
+    }
+    return this;
+}
+
+function inOrden(actual) {
+
+    if (actual.izquierda) {
+        inOrden(actual.izquierda)
     }
 
-    return arrayPosiciones.push(actual.value)
+    recorridoInOrden.push(actual.value)
+
+    if (actual.derecha) {
+        inOrden(actual.derecha)
+    }
+
+    return this;
+}
+
+function postOrden(actual) {
+
+    if (actual.izquierda) {
+        postOrden(actual.izquierda)
+    }
+
+    if (actual.derecha) {
+        postOrden(actual.derecha)
+    }
+
+    recorridoPostOrden.push(actual.value)
+
+    return this;
 }
 
 function pintar(actual, contenedor) {
